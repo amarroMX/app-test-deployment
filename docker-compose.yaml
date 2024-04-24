@@ -1,0 +1,18 @@
+
+services:
+
+    server:
+      container_name: server
+      
+      build:
+        context: .
+        dockerfile: ./dockerfile.server
+
+      env_file:
+        - path: ./dv.server.env
+          required: true
+
+      ports:
+      - "80:80"
+
+      restart: always

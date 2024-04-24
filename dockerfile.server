@@ -1,0 +1,5 @@
+FROM nginx:latest
+
+COPY /nginx/templates/default.conf.template /etc/nginx/templates
+
+RUN nginx -T
