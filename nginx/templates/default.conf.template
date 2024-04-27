@@ -1,27 +1,25 @@
-http {
-
-  map ${NGINX_ENVIRONMENT} $server_name {
-      production ${NGINX_HOST};
-      default localhost
-  }
-  
-  server {
-
-    listen       80;
-
-    if( $scheme != 'https' &&  ${NGINX_ENVIRONMENT} = 'production' ){
-      return 301 https://$host$request_uri;
-    }
 
 
-    location / {
-      proxy_pass http://{$NGINX_UPSTREAM_HOST}:8000
-      proxy_set_header Host               $host;
-      proxy_set_header X-Real-IP          $remote_addr;
-      proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto  $scheme;
-    }
+
+
+
+server {
+
+  listen       80;
+
+  server_name webserver;
+
+ 
+  location / {
+
+    proxy_pass http://afronectar:8000;
+    proxy_set_header Host               $host;
+    proxy_set_header X-Real-IP          $remote_addr;
+    proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto  $scheme;
 
   }
+
 
 }
+

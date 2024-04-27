@@ -1,5 +1,10 @@
 FROM nginx:latest
 
-COPY /nginx/templates/default.conf.template /etc/nginx/templates
+#RUN apt-get install libgeoip-dve
 
-RUN nginx -T
+#RUN rm -f /etc/nginx/nginx.conf
+
+#RUN  touch /etc/nginx/nginx.conf
+
+COPY /nginx/templates/default.conf.template /etc/nginx/templates/
+

@@ -1,6 +1,24 @@
 
 services:
 
+    app:
+      container_name: afronectar
+
+      build: 
+        context: .
+        dockerfile: ./dockerfile.app
+      
+      env_file:
+        - path: ./dv.app.env
+          required: true
+      
+      ports:
+        - "8000:8000"
+
+      restart: always
+
+      command: python manage.py runserver 0.0.0.0:8000
+
     server:
       container_name: server
       
@@ -9,10 +27,17 @@ services:
         dockerfile: ./dockerfile.server
 
       env_file:
+      
         - path: ./dv.server.env
           required: true
 
       ports:
       - "80:80"
 
+      depends_on:
+        - app
+
       restart: always
+
+  
+    
